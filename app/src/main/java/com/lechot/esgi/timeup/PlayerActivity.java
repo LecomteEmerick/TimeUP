@@ -1,5 +1,6 @@
 package com.lechot.esgi.timeup;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -12,9 +13,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.lechot.esgi.timeup.R;
-import com.lechot.esgi.timeup.Player;
-import com.lechot.esgi.timeup.PlayersAdapter;
+import java.util.ArrayList;
 
 
 /**
@@ -67,6 +66,31 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
             playersAdapter.getItem(i);
         }
 
+    }
+
+    public void onEndListClicked(View v) {
+        // Explicit Intent ---> I want to launch the ExampleActivity
+        ArrayList Team1 = new ArrayList();
+        ArrayList Team2 = new ArrayList();
+        for (int i = 0; i < playersAdapter.getCount(); i++){
+            if(Team1.size()>Team2.size()){
+                Team2.add(playersAdapter.getItem(i));
+            }
+            else if (Team2.size()>Team1.size()){
+                Team1.add(playersAdapter.getItem(i));
+            }
+            else{
+                double parm = Math.random();
+                if (parm > 0.5)
+                    Team1.add(playersAdapter.getItem(i));
+                else
+                    Team2.add(playersAdapter.getItem(i));
+            }
+        }
+        Intent nextPageIntent = new Intent(this, TeamViewActivity.class);
+        nextPageIntent.putExtra("team1", Team1);
+        nextPageIntent.putExtra("team2", Team2);
+        startActivity(nextPageIntent);
     }
 
     @Override

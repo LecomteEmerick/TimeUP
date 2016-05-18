@@ -31,6 +31,16 @@
         android:text="@string/add_player"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/button_validate_player"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@id/player_edit_text"
+        android:layout_toStartOf="@id/player_edit_text"
+        android:onClick="onEndListClicked"
+        android:layout_marginRight="5dp"
+        android:text="@string/Terminer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
     <android.support.v7.widget.ListViewCompat
         android:id="@+id/player_list_view"
