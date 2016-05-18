@@ -13,7 +13,7 @@ public class TeamViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_player);
+        setContentView(R.layout.activity_teamview);
         Intent intent = getIntent();
         String team1 = intent.getStringExtra("team1");
         String team2 = intent.getStringExtra("team2");
