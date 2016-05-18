@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:text="Show Score"
+        android:onClick="ShowScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal" android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:id="@+id/ScorePanelA">
+
+        <TextView
+            android:text="Equipe A Points : "
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="25sp"
+            android:gravity="center"
+            android:layout_weight="0.5"
+            />
+
+        <TextView
+            android:id="@+id/ScoreTeamA"
+            android:text="0"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="25sp"
+            android:gravity="center"
+            android:layout_weight="0.5"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal" android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:id="@+id/ScorePanelB"
+        >
+
+        <TextView
+            android:text="Equipe B Points : "
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="25sp"
+            android:gravity="center"
+            android:layout_weight="0.5"
+            />
+
+        <TextView
+            android:id="@+id/ScoreTeamB"
+            android:text="0"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="25sp"
+            android:gravity="center"
+            android:layout_weight="0.5"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/actionText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Faire deviner le mot"
+        android:textSize="40sp"
+        android:gravity="center"
+        />
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.0"
+        android:gravity="center">
+        <TextView
+            android:id="@+id/HiddenWord"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Teemo"
+            android:textSize="40sp"
+            android:gravity="center"
+            />
+
+        <TextView
+            android:id="@+id/TimerText"
+            android:text="30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="40sp"
+            />
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal" android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/SkipButton"
+            android:text="Passer"
+            android:onClick="SkipWord"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/FoundButton"
+            android:text="Trouvé"
+            android:onClick="FoundWord"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+</LinearLayout>

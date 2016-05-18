@@ -1,4 +1,5 @@
 # Built application files
+.idea\workspace.xml
 *.apk
 *.ap_
 
