@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">TimeUP</string>
+    <string name="edit_mode">Edit</string>
+    <string name="players_name">Name</string>
+    <string name="add_player">AddPlayer</string>
+    <string name="delete">Delete</string>
+    <string name="validate_player">ValidatePlayer</string>
+    <string name="Terminer">Terminer</string>
 </resources>
