@@ -50,7 +50,7 @@ public class MainScreenGameActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen_game);
 
-        GameData.SelectedCategories = GameData.CATEGORIES.Animals;
+        /*GameData.SelectedCategories = GameData.CATEGORIES.Animals;
         //To remove
         GameData.TeamA = new ArrayList<Player>();
         GameData.TeamB = new ArrayList<Player>();
@@ -59,7 +59,7 @@ public class MainScreenGameActivity extends AppCompatActivity{
         GameData.TeamA.add(new Player("Alain"));
 
         GameData.TeamB.add(new Player("Titi"));
-        GameData.TeamB.add(new Player("Grosminet"));
+        GameData.TeamB.add(new Player("Grosminet"));*/
         //
 
         this.NextPlayerTeamAId = 0;
