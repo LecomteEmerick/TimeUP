@@ -2,6 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <Button
+        android:onClick="onPlayClicked"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Jouer"
+        android:id="@+id/buttonPlay"
+        android:layout_centerHorizontal="true" />
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="horizontal" android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -23,5 +33,8 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Team 2 :"
             android:id="@+id/textView2" />
+
+
     </LinearLayout>
+
 </LinearLayout>
