@@ -12,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
+import com.lechot.esgi.timeup.GameData;
 
 import java.util.ArrayList;
 
@@ -69,28 +70,24 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     public void onEndListClicked(View v) {
-        // Explicit Intent ---> I want to launch the ExampleActivity
-        Bundle b = new Bundle();
-        ArrayList<String> Team1 = new ArrayList<String>();
-        ArrayList<String> Team2 = new ArrayList<String>();
-        for (int i = 0; i < playersAdapter.getCount(); i++){
-            if(Team1.size()>Team2.size()){
-                Team2.add(playersAdapter.getItem(i).getName());
+        for (int i = 0; i < GameData.PlayerList.size(); i++){
+            if(i==0)
+                GameData.TeamA.add((GameData.PlayerList.get(i)));
+            if(GameData.TeamA.size()> GameData.TeamB.size()){
+                GameData.TeamB.add((GameData.PlayerList.get(i)));
             }
-            else if (Team2.size()>Team1.size()){
-                Team1.add(playersAdapter.getItem(i).getName());
+            else if ( GameData.TeamB.size()>GameData.TeamA.size()){
+                GameData.TeamA.add((GameData.PlayerList.get(i)));
             }
             else{
-                double parm = Math.random();
-                if (parm > 0.5)
-                    Team1.add(playersAdapter.getItem(i).getName());
+                double param = Math.random();
+                if (param > 0.5)
+                    GameData.TeamA.add((GameData.PlayerList.get(i)));
                 else
-                    Team2.add(playersAdapter.getItem(i).getName());
+                    GameData.TeamB.add((GameData.PlayerList.get(i)));
             }
         }
         Intent nextPageIntent = new Intent(this, TeamViewActivity.class);
-        nextPageIntent.putStringArrayListExtra("team1", Team1);
-        nextPageIntent.putStringArrayListExtra("team2", Team2);
         startActivity(nextPageIntent);
     }
 
