@@ -1,7 +1,9 @@
 package com.lechot.esgi.timeup;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -17,19 +19,28 @@ import java.util.concurrent.TimeUnit;
  */
 public class MainScreenGameActivity extends AppCompatActivity{
 
+    private int EtapeNumber = 1;
+
+    //private ArrayList<Player> TeamAPlayer;
+    private int NextPlayerTeamAId = 0;
+    //private ArrayList<Player> TeamBPlayer;
+    private int NextPlayerTeamBId = 0;
+
     private TextView Timer;
     private TextView Word;
     private TextView StateDescription;
     private TextView TeamAScoreView;
     private TextView TeamBScoreView;
+    private TextView TeamPlayInfosView;
 
     private CountDownTimer FinalCountDown;
+    private CountDownTimer SwitchTeamCountDown;
 
     private LinearLayout TeamAScoreLayout;
     private LinearLayout TeamBScoreLayout;
 
-    private ArrayList<String> randomWords;
-    private String[] wordsReferences = new String[] { "Teemo", "Toto", "Tata", "Tutu", "Turlututu", "tetu" };
+    private ArrayList<Words> randomWords;
+    //private String[] wordsReferences = new String[] { "Teemo", "Toto", "Tata", "Tutu", "Turlututu", "tetu" };
 
     private int WordIndex=0;
     private boolean GameStarted = false;
@@ -43,6 +54,19 @@ public class MainScreenGameActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen_game);
 
+        GameData.SelectedCategories = GameData.CATEGORIES.Animals;
+        //To remove
+        GameData.TeamA = new ArrayList<Player>();
+        GameData.TeamB = new ArrayList<Player>();
+
+        GameData.TeamA.add(new Player("Arnaud"));
+        GameData.TeamA.add(new Player("Alain"));
+
+        GameData.TeamB.add(new Player("Titi"));
+        GameData.TeamB.add(new Player("Grosminet"));
+        //
+
+
         this.TeamAScore = 0;
         this.TeamBScore = 0;
 
@@ -55,6 +79,8 @@ public class MainScreenGameActivity extends AppCompatActivity{
 
         this.TeamAScoreLayout = (LinearLayout) findViewById(R.id.ScorePanelA);
         this.TeamBScoreLayout = (LinearLayout) findViewById(R.id.ScorePanelB);
+
+        this.TeamPlayInfosView = (TextView) findViewById(R.id.TeamPlayInfos);
 
         this.TeamAScoreView.setText(Integer.toString(this.TeamAScore));
         this.TeamBScoreView.setText(Integer.toString(this.TeamBScore));
@@ -70,7 +96,20 @@ public class MainScreenGameActivity extends AppCompatActivity{
             @Override
             public void onFinish() {
                 Timer.setText("Time's Up !");
+                SwitchTeamCountDown.start();
                 StopGame();
+            }
+        };
+
+        this.SwitchTeamCountDown = new CountDownTimer(1000,1000)
+        {
+            @Override
+            public void onTick(long millisUntilFinished) {
+            }
+
+            @Override
+            public void onFinish() {
+                StartGame();
             }
         };
 
@@ -78,30 +117,79 @@ public class MainScreenGameActivity extends AppCompatActivity{
 
     }
 
+    public void SetStateDescription()
+    {
+        switch(this.EtapeNumber)
+        {
+            case 1:
+                StateDescription.setText("Faire deviner le mot : mots illimité.");
+                break;
+            case 2:
+                StateDescription.setText("Faire deviner le mot : un seul mot.");
+                break;
+            case 3:
+                StateDescription.setText("Faire deviner le mot : mimant.");
+                break;
+        }
+    }
+
     public void CreateRandomListWord()
     {
-        this.randomWords = new ArrayList<String>();
-        for(int i=0; i < this.wordsReferences.length; ++i)
-            this.randomWords.add(this.wordsReferences[i]);
+        String[] wordsReferences;
+        switch(GameData.SelectedCategories)
+        {
+            case Animals:
+                wordsReferences = GameData.AnimalsWords;
+                break;
+            case Celebrety:
+                wordsReferences = GameData.CelebretyWords;
+                break;
+            case Games:
+                wordsReferences = GameData.GamesWords;
+                break;
+            default:
+                wordsReferences = GameData.HistoryWords;
+                break;
+        }
+
+        this.randomWords = new ArrayList<Words>();
+        for(int i=0; i < wordsReferences.length; ++i)
+            this.randomWords.add(new Words(wordsReferences[i]));
+
         Collections.shuffle(this.randomWords);
     }
 
     public void StartGame()
     {
         isTeamAPlaying = !isTeamAPlaying;
+        String team;
+        if(isTeamAPlaying)
+            team = "A " + GameData.TeamA.get(NextPlayerTeamAId).getName();
+        else
+            team = "B " + GameData.TeamB.get(NextPlayerTeamBId).getName();
+
+        TeamPlayInfosView.setText("Team " + team);
+
+        SetStateDescription();
 
         GameStarted = true;
         WordIndex = 0;
         CreateRandomListWord();
         this.FinalCountDown.start();
-        this.Word.setText(this.randomWords.get(WordIndex));
+        this.Word.setText(this.randomWords.get(WordIndex).Word);
     }
 
     public void StopGame()
     {
         GameStarted = false;
         this.FinalCountDown.cancel();
-        this.Word.setText("");
+        this.Word.setText("Round End");
+
+        if(isTeamAPlaying)
+            NextPlayerTeamAId = (NextPlayerTeamAId+1) % GameData.TeamA.size();
+        else
+            NextPlayerTeamBId = (NextPlayerTeamBId+1) % GameData.TeamB.size();
+
     }
 
     public void ShowScore(View v)
@@ -116,7 +204,7 @@ public class MainScreenGameActivity extends AppCompatActivity{
             return;
 
         WordIndex = (WordIndex + 1) % this.randomWords.size();
-        this.Word.setText(this.randomWords.get(WordIndex));
+        this.Word.setText(this.randomWords.get(WordIndex).Word);
     }
 
     public void FoundWord(View v)
@@ -124,8 +212,27 @@ public class MainScreenGameActivity extends AppCompatActivity{
         if(!GameStarted)
             return;
 
-        WordIndex = (WordIndex + 1) % this.randomWords.size();
-        this.Word.setText(this.randomWords.get(WordIndex));
+        this.randomWords.get(WordIndex).isFound = true;
+
+        int i=0;
+        while(this.randomWords.get(WordIndex).isFound && i < this.randomWords.size())
+        {
+            WordIndex = (WordIndex + 1) % this.randomWords.size();
+            ++i;
+        }
+
+        if(i == this.randomWords.size())
+        {
+            ++EtapeNumber;
+            if(EtapeNumber < 4) {
+                SetNextEtape();
+                return;
+            }else{
+                FinishGame();
+            }
+        }
+
+        this.Word.setText(this.randomWords.get(WordIndex).Word);
 
         if(isTeamAPlaying) {
             ++this.TeamAScore;
@@ -136,5 +243,39 @@ public class MainScreenGameActivity extends AppCompatActivity{
             ++this.TeamBScore;
             this.TeamBScoreView.setText(Integer.toString(this.TeamBScore));
         }
+    }
+
+    public void SetNextEtape()
+    {
+        StopGame();
+
+        ArrayList<Words> newWordList = new ArrayList<Words>();
+        for(Words w : this.randomWords)
+        {
+            if(w.isFound)
+            {
+                w.isFound = false;
+                newWordList.add(w);
+            }
+        }
+        this.randomWords = newWordList;
+
+        SwitchTeamCountDown.start();
+    }
+
+    public void FinishGame()
+    {
+        StopGame();
+
+        new AlertDialog.Builder(MainScreenGameActivity.this)
+                .setTitle("Game Finish")
+                .setMessage("The game is finish.")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue with delete
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 }
