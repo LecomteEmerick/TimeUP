@@ -21,9 +21,7 @@ public class MainScreenGameActivity extends AppCompatActivity{
 
     private int EtapeNumber = 1;
 
-    //private ArrayList<Player> TeamAPlayer;
     private int NextPlayerTeamAId = 0;
-    //private ArrayList<Player> TeamBPlayer;
     private int NextPlayerTeamBId = 0;
 
     private TextView Timer;
@@ -45,8 +43,6 @@ public class MainScreenGameActivity extends AppCompatActivity{
     private int WordIndex=0;
     private boolean GameStarted = false;
 
-    private int TeamAScore;
-    private int TeamBScore;
     private boolean isTeamAPlaying=false;
 
     @Override
@@ -66,9 +62,11 @@ public class MainScreenGameActivity extends AppCompatActivity{
         GameData.TeamB.add(new Player("Grosminet"));
         //
 
+        this.NextPlayerTeamAId = 0;
+        this.NextPlayerTeamBId = 0;
 
-        this.TeamAScore = 0;
-        this.TeamBScore = 0;
+        GameData.TeamAScore = 0;
+        GameData.TeamBScore = 0;
 
         this.Timer = (TextView)findViewById(R.id.TimerText);
         this.Word = (TextView)findViewById(R.id.HiddenWord);
@@ -82,8 +80,8 @@ public class MainScreenGameActivity extends AppCompatActivity{
 
         this.TeamPlayInfosView = (TextView) findViewById(R.id.TeamPlayInfos);
 
-        this.TeamAScoreView.setText(Integer.toString(this.TeamAScore));
-        this.TeamBScoreView.setText(Integer.toString(this.TeamBScore));
+        this.TeamAScoreView.setText(Integer.toString(GameData.TeamAScore));
+        this.TeamBScoreView.setText(Integer.toString(GameData.TeamBScore));
         this.Word.setText("");
 
         this.FinalCountDown = new CountDownTimer(30000,1000)
@@ -164,26 +162,45 @@ public class MainScreenGameActivity extends AppCompatActivity{
         isTeamAPlaying = !isTeamAPlaying;
         String team;
         if(isTeamAPlaying)
-            team = "A " + GameData.TeamA.get(NextPlayerTeamAId).getName();
+            team = "A \nJoueur " + GameData.TeamA.get(NextPlayerTeamAId).getName();
         else
-            team = "B " + GameData.TeamB.get(NextPlayerTeamBId).getName();
+            team = "B \nJoueur " + GameData.TeamB.get(NextPlayerTeamBId).getName();
 
-        TeamPlayInfosView.setText("Team " + team);
+        TeamPlayInfosView.setText("Equipe " + team);
 
         SetStateDescription();
 
-        GameStarted = true;
         WordIndex = 0;
         CreateRandomListWord();
-        this.FinalCountDown.start();
-        this.Word.setText(this.randomWords.get(WordIndex).Word);
+
+        new AlertDialog.Builder(MainScreenGameActivity.this)
+                .setTitle("Nouveau Tour")
+                .setMessage("Equipe " + team)
+
+                .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    public void onDismiss(DialogInterface dialog)
+                    {
+                        GameStarted = true;
+                        FinalCountDown.start();
+                        Word.setText(randomWords.get(WordIndex).Word);
+                    }
+                })
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        GameStarted = true;
+                        FinalCountDown.start();
+                        Word.setText(randomWords.get(WordIndex).Word);
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 
     public void StopGame()
     {
         GameStarted = false;
         this.FinalCountDown.cancel();
-        this.Word.setText("Round End");
+        this.Word.setText("Tour Terminé.");
 
         if(isTeamAPlaying)
             NextPlayerTeamAId = (NextPlayerTeamAId+1) % GameData.TeamA.size();
@@ -205,6 +222,14 @@ public class MainScreenGameActivity extends AppCompatActivity{
 
         WordIndex = (WordIndex + 1) % this.randomWords.size();
         this.Word.setText(this.randomWords.get(WordIndex).Word);
+
+        if(isTeamAPlaying) {
+            ++GameData.TeamA.get(NextPlayerTeamAId).SkipAnswerScore;
+        }
+
+        else {
+            ++GameData.TeamB.get(NextPlayerTeamBId).SkipAnswerScore;
+        }
     }
 
     public void FoundWord(View v)
@@ -235,13 +260,15 @@ public class MainScreenGameActivity extends AppCompatActivity{
         this.Word.setText(this.randomWords.get(WordIndex).Word);
 
         if(isTeamAPlaying) {
-            ++this.TeamAScore;
-            this.TeamAScoreView.setText(Integer.toString(this.TeamAScore));
+            ++GameData.TeamAScore;
+            this.TeamAScoreView.setText(Integer.toString(GameData.TeamAScore));
+            ++GameData.TeamA.get(NextPlayerTeamAId).RightAnswerScore;
         }
 
         else {
-            ++this.TeamBScore;
-            this.TeamBScoreView.setText(Integer.toString(this.TeamBScore));
+            ++GameData.TeamBScore;
+            this.TeamBScoreView.setText(Integer.toString(GameData.TeamBScore));
+            ++GameData.TeamB.get(NextPlayerTeamBId).RightAnswerScore;
         }
     }
 
@@ -267,12 +294,29 @@ public class MainScreenGameActivity extends AppCompatActivity{
     {
         StopGame();
 
+        String winner="";
+        if(GameData.TeamAScore > GameData.TeamBScore)
+        {
+            winner = "Equipe A.";
+        }else if(GameData.TeamAScore > GameData.TeamBScore)
+        {
+            winner = "Equipe B.";
+        }else{
+            winner = "Tout le monde.";
+        }
+
         new AlertDialog.Builder(MainScreenGameActivity.this)
-                .setTitle("Game Finish")
-                .setMessage("The game is finish.")
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                .setTitle("Fin du jeu")
+                .setMessage("Vainqueur : " + winner)
+                .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    public void onDismiss(DialogInterface dialog)
+                    {
+
+                    }
+                })
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        // continue with delete
+                        //Intent startMenu = new
                     }
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert)

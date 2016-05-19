@@ -8,7 +8,9 @@ import java.util.ArrayList;
 public class GameData {
 
     public static ArrayList<Player> TeamA;
+    public static int TeamAScore;
     public static ArrayList<Player> TeamB;
+    public static int TeamBScore;
     public enum CATEGORIES { Animals, History, Games, Celebrety }
 
     public static CATEGORIES SelectedCategories;
