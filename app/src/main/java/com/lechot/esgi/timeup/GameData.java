@@ -8,14 +8,14 @@ import com.lechot.esgi.timeup.Player;
  */
 public class GameData {
 
-    public static ArrayList<Player> PlayerList;
-    public static ArrayList<Player> TeamA;
+    public static ArrayList<Player> PlayerList = new ArrayList<Player>();
+    public static ArrayList<Player> TeamA = new ArrayList<Player>();
     public static int TeamAScore;
-    public static ArrayList<Player> TeamB;
+    public static ArrayList<Player> TeamB = new ArrayList<Player>();
     public static int TeamBScore;
-    public enum CATEGORIES { Animals, History, Games, Celebrety }
+    public enum CATEGORIES { Animals, History, Games, Celebrety, Null }
 
-    public static CATEGORIES SelectedCategories;
+    public static CATEGORIES SelectedCategories = CATEGORIES.Null;
 
     public static String[] AnimalsWords = new String[] { "Chat", "Chien", "Poisson", "Girafe", "Dauphin", "Singe", "Pivert", "Moineau", "Pigeons", "Poulet" };
     public static String[] HistoryWords = new String[] { "Hitler", "Charlemagne", "Charles Martel", "Jacques Chirac", "Napolean", "Louis XVI", "Lioret" };

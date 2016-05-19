@@ -302,7 +302,7 @@ public class MainScreenGameActivity extends AppCompatActivity{
         {
             winner = "Equipe B.";
         }else{
-            winner = "Tout le monde.";
+            winner = "Egalité";
         }
 
         new AlertDialog.Builder(MainScreenGameActivity.this)

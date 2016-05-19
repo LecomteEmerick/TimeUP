@@ -13,6 +13,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.lechot.esgi.timeup.GameData;
+import com.lechot.esgi.timeup.Player;
 
 import java.util.ArrayList;
 
@@ -61,6 +62,7 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
         if (!playerName.isEmpty()){
             playersAdapter.add(new Player(playerName));
             playerEditText.getText().clear();
+            GameData.PlayerList.add(new Player(playerName));
         }
 
         for (int i = 0; i < playersAdapter.getCount(); i++){
@@ -70,22 +72,23 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     public void onEndListClicked(View v) {
-        for (int i = 0; i < GameData.PlayerList.size(); i++){
-            if(i==0)
-                GameData.TeamA.add((GameData.PlayerList.get(i)));
-            if(GameData.TeamA.size()> GameData.TeamB.size()){
-                GameData.TeamB.add((GameData.PlayerList.get(i)));
-            }
-            else if ( GameData.TeamB.size()>GameData.TeamA.size()){
-                GameData.TeamA.add((GameData.PlayerList.get(i)));
-            }
-            else{
-                double param = Math.random();
-                if (param > 0.5)
-                    GameData.TeamA.add((GameData.PlayerList.get(i)));
-                else
+        GameData.TeamA.add((GameData.PlayerList.get(0)));
+        for (int i = 1; i < GameData.PlayerList.size(); i++){
+                if(GameData.TeamA.size()> GameData.TeamB.size()){
                     GameData.TeamB.add((GameData.PlayerList.get(i)));
-            }
+                }
+                else if ( GameData.TeamB.size()>GameData.TeamA.size()){
+                    GameData.TeamA.add((GameData.PlayerList.get(i)));
+                }
+                else{
+                    double param = Math.random();
+                    if (param > 0.5)
+                        GameData.TeamA.add((GameData.PlayerList.get(i)));
+                    else
+                        GameData.TeamB.add((GameData.PlayerList.get(i)));
+                }
+
+
         }
         Intent nextPageIntent = new Intent(this, TeamViewActivity.class);
         startActivity(nextPageIntent);

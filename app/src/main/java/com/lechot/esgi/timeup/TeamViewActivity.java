@@ -22,7 +22,7 @@ public class TeamViewActivity extends AppCompatActivity {
         ArrayList<String> TeamB = new ArrayList<>();
         for (int i =0;i<GameData.TeamA.size();i++){
             TeamA.add(GameData.TeamA.get(i).getName());
-            TeamA.add(GameData.TeamB.get(i).getName());
+            TeamB.add(GameData.TeamB.get(i).getName());
         }
         ArrayAdapter<String> itemsAdapterTeamA =
                 new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, TeamA);
