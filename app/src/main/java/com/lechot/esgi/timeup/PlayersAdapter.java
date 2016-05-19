@@ -6,7 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.lechot.esgi.timeup.R;
+import com.lechot.esgi.timeup.Player;
 
 /**
  * Created by Bastien on 18/05/2016.
@@ -38,6 +42,7 @@ public class PlayersAdapter extends ArrayAdapter<Player> {
                 remove(player);
             }
         });
+
         return convertView;
     }
 
