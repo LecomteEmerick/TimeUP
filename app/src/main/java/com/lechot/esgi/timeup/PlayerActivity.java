@@ -70,26 +70,27 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
 
     public void onEndListClicked(View v) {
         // Explicit Intent ---> I want to launch the ExampleActivity
-        ArrayList Team1 = new ArrayList();
-        ArrayList Team2 = new ArrayList();
+        Bundle b = new Bundle();
+        ArrayList<String> Team1 = new ArrayList<String>();
+        ArrayList<String> Team2 = new ArrayList<String>();
         for (int i = 0; i < playersAdapter.getCount(); i++){
             if(Team1.size()>Team2.size()){
-                Team2.add(playersAdapter.getItem(i));
+                Team2.add(playersAdapter.getItem(i).getName());
             }
             else if (Team2.size()>Team1.size()){
-                Team1.add(playersAdapter.getItem(i));
+                Team1.add(playersAdapter.getItem(i).getName());
             }
             else{
                 double parm = Math.random();
                 if (parm > 0.5)
-                    Team1.add(playersAdapter.getItem(i));
+                    Team1.add(playersAdapter.getItem(i).getName());
                 else
-                    Team2.add(playersAdapter.getItem(i));
+                    Team2.add(playersAdapter.getItem(i).getName());
             }
         }
         Intent nextPageIntent = new Intent(this, TeamViewActivity.class);
-        nextPageIntent.putExtra("team1", Team1);
-        nextPageIntent.putExtra("team2", Team2);
+        nextPageIntent.putStringArrayListExtra("team1", Team1);
+        nextPageIntent.putStringArrayListExtra("team2", Team2);
         startActivity(nextPageIntent);
     }
 
