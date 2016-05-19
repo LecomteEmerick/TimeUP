@@ -1,6 +1,7 @@
 package com.lechot.esgi.timeup;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -65,8 +66,8 @@ public class MainScreenGameActivity extends AppCompatActivity{
         this.NextPlayerTeamAId = 0;
         this.NextPlayerTeamBId = 0;
 
-        GameData.TeamAScore = 0;
-        GameData.TeamBScore = 0;
+        /*GameData.TeamAScore = 0;
+        GameData.TeamBScore = 0;*/
 
         this.Timer = (TextView)findViewById(R.id.TimerText);
         this.Word = (TextView)findViewById(R.id.HiddenWord);
@@ -253,7 +254,7 @@ public class MainScreenGameActivity extends AppCompatActivity{
                 SetNextEtape();
                 return;
             }else{
-                FinishGame();
+                FinishGame(v);
             }
         }
 
@@ -290,7 +291,7 @@ public class MainScreenGameActivity extends AppCompatActivity{
         SwitchTeamCountDown.start();
     }
 
-    public void FinishGame()
+    public void FinishGame(View v)
     {
         StopGame();
 
@@ -311,7 +312,6 @@ public class MainScreenGameActivity extends AppCompatActivity{
                 .setOnDismissListener(new DialogInterface.OnDismissListener() {
                     public void onDismiss(DialogInterface dialog)
                     {
-
                     }
                 })
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
@@ -321,5 +321,11 @@ public class MainScreenGameActivity extends AppCompatActivity{
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
+        onSwitchToScore(v);
+    }
+    public void onSwitchToScore(View v){
+        // Explicit Intent ---> I want to launch the ExampleActivity
+        Intent nextPageIntent = new Intent(this, ScoreActivity.class);
+        startActivity(nextPageIntent);
     }
 }
