@@ -1,12 +1,14 @@
 package com.lechot.esgi.timeup;
 
 import java.util.ArrayList;
+import com.lechot.esgi.timeup.Player;
 
 /**
  * Created by Emerick Lecomte on 19/05/2016.
  */
 public class GameData {
 
+    public static ArrayList<Player> PlayerList;
     public static ArrayList<Player> TeamA;
     public static int TeamAScore;
     public static ArrayList<Player> TeamB;
