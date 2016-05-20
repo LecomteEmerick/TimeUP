@@ -5,24 +5,23 @@
 
     <TextView
         android:layout_gravity="center"
-        android:layout_weight="1.0"
         android:layout_margin="10dp"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Score :"
+        android:text="Résultats"
         android:id="@+id/textViewScore" />
     <TextView
         android:layout_gravity="center"
-        android:layout_weight="1.0"
         android:layout_margin="10dp"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Gagnant : "
         android:id="@+id/Winner" />
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:gravity="center"
         android:orientation="horizontal" android:layout_width="match_parent"
         android:layout_height="45dp">
 
@@ -33,6 +32,7 @@
             android:layout_height="25dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Team A :"
+            android:gravity="center"
             android:id="@+id/ScoreTeamA" />
 
         <TextView
@@ -42,11 +42,13 @@
             android:layout_height="25dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Team B :"
+            android:gravity="center"
             android:id="@+id/ScoreTeamB" />
 
 
     </LinearLayout>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:gravity="center"
         android:orientation="horizontal" android:layout_width="match_parent"
         android:layout_height="45dp">
     <Button
@@ -68,7 +70,8 @@
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="horizontal" android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center">
         <ListView
             android:layout_width="185dp"
             android:layout_height="wrap_content"

@@ -21,26 +21,33 @@ public class ScoreActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score);
-        ArrayList<String> TeamA = new ArrayList<>();
-        ArrayList<String> TeamB = new ArrayList<>();
-        for (int i = 0; i < GameData.TeamA.size(); i++) {
-            TeamA.add(GameData.TeamA.get(i).getName());
-            TeamB.add(GameData.TeamB.get(i).getName());
-        }
-        ArrayAdapter<String> itemsAdapterTeamA =
-                new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, TeamA);
-        ArrayAdapter<String> itemsAdapterTeamB =
-                new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, TeamB);
+        PlayerStatsAdapter teamA_Adapter = new PlayerStatsAdapter(this);
+        PlayerStatsAdapter teamB_Adapter = new PlayerStatsAdapter(this);
 
-        ArrayAdapter<Integer> scoreTeamA =
+        for(Player p : GameData.TeamA)
+        {
+            teamA_Adapter.add(p);
+        }
+
+        for(Player p : GameData.TeamB)
+        {
+            teamB_Adapter.add(p);
+        }
+
+        /*ArrayAdapter<Player> itemsAdapterTeamA =
+                new ArrayAdapter<Player>(this, R.layout.stats_player, teamA_Adapter);
+        ArrayAdapter<Player> itemsAdapterTeamB =
+                new ArrayAdapter<Player>(this, R.layout.stats_player, teamB_Adapter);*/
+
+        /*ArrayAdapter<Integer> scoreTeamA =
                 new ArrayAdapter<Integer>(this, GameData.TeamAScore);
         ArrayAdapter<Integer> scoreTeamB =
-                new ArrayAdapter<Integer>(this, GameData.TeamBScore);
+                new ArrayAdapter<Integer>(this, GameData.TeamBScore);*/
 
         ListView listViewTeamA = (ListView) findViewById(R.id.listViewTeamA);
-        listViewTeamA.setAdapter(itemsAdapterTeamA);
+        listViewTeamA.setAdapter(teamA_Adapter);
         ListView listViewTeamB = (ListView) findViewById(R.id.listViewTeamB);
-        listViewTeamB.setAdapter(itemsAdapterTeamB);
+        listViewTeamB.setAdapter(teamB_Adapter);
 
         TextView tA = (TextView) findViewById(R.id.ScoreTeamA);
         tA.setText("Team A : " + GameData.TeamAScore);

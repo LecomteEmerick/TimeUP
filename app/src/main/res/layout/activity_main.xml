@@ -7,6 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:gravity="center"
     tools:context="com.lechot.esgi.timeup.MainActivity">
 
 
@@ -17,7 +18,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:src="@drawable/timeup"
-        android:layout_marginTop="30dp" />
+        />
 
     <Button
         android:onClick="onPlayClicked"
@@ -27,7 +28,7 @@
         android:id="@+id/buttonPlay"
         android:layout_below="@+id/imageView"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="115dp" />
+         />
 
 
 </RelativeLayout>
