@@ -34,15 +34,6 @@ public class ScoreActivity extends AppCompatActivity {
             teamB_Adapter.add(p);
         }
 
-        /*ArrayAdapter<Player> itemsAdapterTeamA =
-                new ArrayAdapter<Player>(this, R.layout.stats_player, teamA_Adapter);
-        ArrayAdapter<Player> itemsAdapterTeamB =
-                new ArrayAdapter<Player>(this, R.layout.stats_player, teamB_Adapter);*/
-
-        /*ArrayAdapter<Integer> scoreTeamA =
-                new ArrayAdapter<Integer>(this, GameData.TeamAScore);
-        ArrayAdapter<Integer> scoreTeamB =
-                new ArrayAdapter<Integer>(this, GameData.TeamBScore);*/
 
         ListView listViewTeamA = (ListView) findViewById(R.id.listViewTeamA);
         listViewTeamA.setAdapter(teamA_Adapter);

@@ -306,6 +306,9 @@ public class MainScreenGameActivity extends AppCompatActivity{
 
     public void SetNextEtape()
     {
+        NextPlayerTeamAId = 0;
+        NextPlayerTeamBId = 0;
+
         //StopGame();
 
         WordIndex=0;
@@ -328,32 +331,6 @@ public class MainScreenGameActivity extends AppCompatActivity{
     {
         StopGame();
 
-        String winner="";
-        if(GameData.TeamAScore > GameData.TeamBScore)
-        {
-            winner = "Equipe A.";
-        }else if(GameData.TeamAScore > GameData.TeamBScore)
-        {
-            winner = "Equipe B.";
-        }else{
-            winner = "Egalité";
-        }
-
-        new AlertDialog.Builder(MainScreenGameActivity.this)
-                .setTitle("Fin du jeu")
-                .setMessage("Vainqueur : " + winner)
-                .setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    public void onDismiss(DialogInterface dialog)
-                    {
-                    }
-                })
-                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        //Intent startMenu = new
-                    }
-                })
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .show();
         onSwitchToScore(v);
     }
     public void onSwitchToScore(View v){

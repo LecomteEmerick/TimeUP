@@ -20,10 +20,14 @@ public class TeamViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_teamview);
         ArrayList<String> TeamA = new ArrayList<>();
         ArrayList<String> TeamB = new ArrayList<>();
+
         for (int i =0;i<GameData.TeamA.size();i++){
             TeamA.add(GameData.TeamA.get(i).getName());
+        }
+        for (int i =0;i<GameData.TeamB.size();i++) {
             TeamB.add(GameData.TeamB.get(i).getName());
         }
+
         ArrayAdapter<String> itemsAdapterTeamA =
                 new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, TeamA);
         ArrayAdapter<String> itemsAdapterTeamB =
