@@ -18,18 +18,22 @@ public class CategoryActivity extends AppCompatActivity {
 
     public void onClickAnimals(View v) {
         Intent nextPageIntent = new Intent(this, MainScreenGameActivity.class);
+        GameData.SelectedCategories = GameData.CATEGORIES.Animals;
         startActivity(nextPageIntent);
     }
     public void onClickGames(View v) {
         Intent nextPageIntent = new Intent(this, MainScreenGameActivity.class);
+        GameData.SelectedCategories = GameData.CATEGORIES.Games;
         startActivity(nextPageIntent);
     }
     public void onClickHistory(View v) {
         Intent nextPageIntent = new Intent(this, MainScreenGameActivity.class);
+        GameData.SelectedCategories = GameData.CATEGORIES.History;
         startActivity(nextPageIntent);
     }
     public void onClickCelebrety(View v) {
         Intent nextPageIntent = new Intent(this, MainScreenGameActivity.class);
+        GameData.SelectedCategories = GameData.CATEGORIES.Celebrety;
         startActivity(nextPageIntent);
     }
 }

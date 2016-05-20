@@ -1,6 +1,7 @@
-package com.lechot.esgi.timeup;
+﻿package com.lechot.esgi.timeup;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -51,27 +52,14 @@ public class MainScreenGameActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen_game);
 
-        //To remove
-        GameData.SelectedCategories = GameData.CATEGORIES.Animals;
-
-        GameData.TeamA = new ArrayList<Player>();
-        GameData.TeamB = new ArrayList<Player>();
-
-        GameData.TeamA.add(new Player("Arnaud"));
-        GameData.TeamA.add(new Player("Alain"));
-
-        GameData.TeamB.add(new Player("Titi"));
-        GameData.TeamB.add(new Player("Grosminet"));
-        //
-
         this.AllPlayerInTeamAHavePlayed = false;
         this.AllPlayerInTeamBHavePlayed = false;
 
         this.NextPlayerTeamAId = 0;
         this.NextPlayerTeamBId = 0;
 
-        GameData.TeamAScore = 0;
-        GameData.TeamBScore = 0;
+        /*GameData.TeamAScore = 0;
+        GameData.TeamBScore = 0;*/
 
         this.Timer = (TextView)findViewById(R.id.TimerText);
         this.Word = (TextView)findViewById(R.id.HiddenWord);
@@ -290,7 +278,7 @@ public class MainScreenGameActivity extends AppCompatActivity{
                 SetNextEtape();
                 return;
             }else{
-                FinishGame();
+                FinishGame(v);
             }
         }
     }
@@ -313,7 +301,7 @@ public class MainScreenGameActivity extends AppCompatActivity{
         SwitchTeamCountDown.start();
     }
 
-    public void FinishGame()
+    public void FinishGame(View v)
     {
         StopGame();
 
@@ -325,7 +313,7 @@ public class MainScreenGameActivity extends AppCompatActivity{
         {
             winner = "Equipe B.";
         }else{
-            winner = "Tout le monde.";
+            winner = "Egalité";
         }
 
         new AlertDialog.Builder(MainScreenGameActivity.this)
@@ -334,7 +322,6 @@ public class MainScreenGameActivity extends AppCompatActivity{
                 .setOnDismissListener(new DialogInterface.OnDismissListener() {
                     public void onDismiss(DialogInterface dialog)
                     {
-
                     }
                 })
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
@@ -344,5 +331,11 @@ public class MainScreenGameActivity extends AppCompatActivity{
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
+        onSwitchToScore(v);
+    }
+    public void onSwitchToScore(View v){
+        // Explicit Intent ---> I want to launch the ExampleActivity
+        Intent nextPageIntent = new Intent(this, ScoreActivity.class);
+        startActivity(nextPageIntent);
     }
 }

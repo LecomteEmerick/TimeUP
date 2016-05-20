@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_gravity="center"
+        android:layout_weight="1.0"
+        android:layout_margin="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Score :"
+        android:id="@+id/textViewScore" />
+    <TextView
+        android:layout_gravity="center"
+        android:layout_weight="1.0"
+        android:layout_margin="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Gagnant : "
+        android:id="@+id/Winner" />
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal" android:layout_width="match_parent"
+        android:layout_height="45dp">
+
+        <TextView
+            android:layout_weight="1.0"
+            android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Team A :"
+            android:id="@+id/ScoreTeamA" />
+
+        <TextView
+            android:layout_weight="1.0"
+            android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Team B :"
+            android:id="@+id/ScoreTeamB" />
+
+
+    </LinearLayout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal" android:layout_width="match_parent"
+        android:layout_height="45dp">
+    <Button
+        android:onClick="onNextRoundClicked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Manche Suivante"
+        android:id="@+id/buttonNextRound"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:onClick="onNewGmeClicked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nouvelle partie"
+        android:id="@+id/buttonPlay"
+        android:layout_centerHorizontal="true" />
+        </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal" android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ListView
+            android:layout_width="185dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/listViewTeamA" />
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/listViewTeamB"
+            android:layout_gravity="right" />
+    </LinearLayout>
+
+</LinearLayout>
