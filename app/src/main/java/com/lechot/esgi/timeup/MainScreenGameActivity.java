@@ -107,13 +107,13 @@ public class MainScreenGameActivity extends AppCompatActivity{
         switch(this.EtapeNumber)
         {
             case 1:
-                StateDescription.setText("Faire deviner le mot : mots illimité.");
+                StateDescription.setText("Règle : mots illimité.");
                 break;
             case 2:
-                StateDescription.setText("Faire deviner le mot : un seul mot.");
+                StateDescription.setText("Règle : un seul mot.");
                 break;
             case 3:
-                StateDescription.setText("Faire deviner le mot : mimant.");
+                StateDescription.setText("Règle : mime.");
                 break;
         }
     }
@@ -208,7 +208,11 @@ public class MainScreenGameActivity extends AppCompatActivity{
             return;
 
         WordIndex = (WordIndex + 1) % this.randomWords.size();
-        this.Word.setText(this.randomWords.get(WordIndex).Word);
+        int index = GetNextWordIndex();
+
+        if(index != this.randomWords.size()) {
+            this.Word.setText(this.randomWords.get(WordIndex).Word);
+        }
 
         if(isTeamAPlaying) {
             ++GameData.TeamA.get(NextPlayerTeamAId).SkipAnswerScore;
@@ -238,14 +242,9 @@ public class MainScreenGameActivity extends AppCompatActivity{
             ++GameData.TeamB.get(NextPlayerTeamBId).RightAnswerScore;
         }
 
-        int i=0;
-        while(this.randomWords.get(WordIndex).isFound && i < this.randomWords.size())
-        {
-            WordIndex = (WordIndex + 1) % this.randomWords.size();
-            ++i;
-        }
+        int index = GetNextWordIndex();
 
-        if(i == this.randomWords.size())
+        if(index == this.randomWords.size())
         {
             ++EtapeNumber;
             if(EtapeNumber < 4) {
@@ -257,6 +256,17 @@ public class MainScreenGameActivity extends AppCompatActivity{
         }
 
         this.Word.setText(this.randomWords.get(WordIndex).Word);
+    }
+
+    public int GetNextWordIndex()
+    {
+        int i=0;
+        while(this.randomWords.get(WordIndex).isFound && i < this.randomWords.size())
+        {
+            WordIndex = (WordIndex + 1) % this.randomWords.size();
+            ++i;
+        }
+        return i;
     }
 
     public void SetNextEtape()
