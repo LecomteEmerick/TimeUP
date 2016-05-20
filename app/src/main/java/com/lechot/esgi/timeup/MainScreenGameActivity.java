@@ -23,6 +23,8 @@ public class MainScreenGameActivity extends AppCompatActivity{
 
     private int NextPlayerTeamAId = 0;
     private int NextPlayerTeamBId = 0;
+    private boolean AllPlayerInTeamAHavePlayed = false;
+    private boolean AllPlayerInTeamBHavePlayed = false;
 
     private TextView Timer;
     private TextView Word;
@@ -38,7 +40,6 @@ public class MainScreenGameActivity extends AppCompatActivity{
     private LinearLayout TeamBScoreLayout;
 
     private ArrayList<Words> randomWords;
-    //private String[] wordsReferences = new String[] { "Teemo", "Toto", "Tata", "Tutu", "Turlututu", "tetu" };
 
     private int WordIndex=0;
     private boolean GameStarted = false;
@@ -50,8 +51,9 @@ public class MainScreenGameActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen_game);
 
-        GameData.SelectedCategories = GameData.CATEGORIES.Animals;
         //To remove
+        GameData.SelectedCategories = GameData.CATEGORIES.Animals;
+
         GameData.TeamA = new ArrayList<Player>();
         GameData.TeamB = new ArrayList<Player>();
 
@@ -61,6 +63,9 @@ public class MainScreenGameActivity extends AppCompatActivity{
         GameData.TeamB.add(new Player("Titi"));
         GameData.TeamB.add(new Player("Grosminet"));
         //
+
+        this.AllPlayerInTeamAHavePlayed = false;
+        this.AllPlayerInTeamBHavePlayed = false;
 
         this.NextPlayerTeamAId = 0;
         this.NextPlayerTeamBId = 0;
@@ -120,13 +125,13 @@ public class MainScreenGameActivity extends AppCompatActivity{
         switch(this.EtapeNumber)
         {
             case 1:
-                StateDescription.setText("Faire deviner le mot : mots illimité.");
+                StateDescription.setText("Faire deviner le mot en : mots illimité.");
                 break;
             case 2:
-                StateDescription.setText("Faire deviner le mot : un seul mot.");
+                StateDescription.setText("Faire deviner le mot en : un seul mot.");
                 break;
             case 3:
-                StateDescription.setText("Faire deviner le mot : mimant.");
+                StateDescription.setText("Faire deviner le mot en : mimant.");
                 break;
         }
     }
@@ -202,10 +207,28 @@ public class MainScreenGameActivity extends AppCompatActivity{
         this.FinalCountDown.cancel();
         this.Word.setText("Tour Terminé.");
 
-        if(isTeamAPlaying)
-            NextPlayerTeamAId = (NextPlayerTeamAId+1) % GameData.TeamA.size();
-        else
-            NextPlayerTeamBId = (NextPlayerTeamBId+1) % GameData.TeamB.size();
+        if(isTeamAPlaying) {
+            NextPlayerTeamAId = (NextPlayerTeamAId + 1) % GameData.TeamA.size();
+            if(NextPlayerTeamAId == GameData.TeamA.size()-1)
+                AllPlayerInTeamAHavePlayed =true;
+        }else {
+            NextPlayerTeamBId = (NextPlayerTeamBId + 1) % GameData.TeamB.size();
+            if(NextPlayerTeamBId == GameData.TeamB.size()-1)
+                AllPlayerInTeamBHavePlayed =true;
+        }
+
+        if(AllPlayerInTeamAHavePlayed && AllPlayerInTeamBHavePlayed)
+        {
+            NextPlayerTeamAId = 0;
+            NextPlayerTeamBId = 0;
+
+            AllPlayerInTeamAHavePlayed = false;
+            AllPlayerInTeamBHavePlayed = false;
+
+            ++EtapeNumber;
+            SetNextEtape();
+            return;
+        }
 
     }
 
@@ -237,6 +260,20 @@ public class MainScreenGameActivity extends AppCompatActivity{
         if(!GameStarted)
             return;
 
+        this.Word.setText(this.randomWords.get(WordIndex).Word);
+
+        if(isTeamAPlaying) {
+            ++GameData.TeamAScore;
+            this.TeamAScoreView.setText(Integer.toString(GameData.TeamAScore));
+            ++GameData.TeamA.get(NextPlayerTeamAId).RightAnswerScore;
+        }
+
+        else {
+            ++GameData.TeamBScore;
+            this.TeamBScoreView.setText(Integer.toString(GameData.TeamBScore));
+            ++GameData.TeamB.get(NextPlayerTeamBId).RightAnswerScore;
+        }
+
         this.randomWords.get(WordIndex).isFound = true;
 
         int i=0;
@@ -255,20 +292,6 @@ public class MainScreenGameActivity extends AppCompatActivity{
             }else{
                 FinishGame();
             }
-        }
-
-        this.Word.setText(this.randomWords.get(WordIndex).Word);
-
-        if(isTeamAPlaying) {
-            ++GameData.TeamAScore;
-            this.TeamAScoreView.setText(Integer.toString(GameData.TeamAScore));
-            ++GameData.TeamA.get(NextPlayerTeamAId).RightAnswerScore;
-        }
-
-        else {
-            ++GameData.TeamBScore;
-            this.TeamBScoreView.setText(Integer.toString(GameData.TeamBScore));
-            ++GameData.TeamB.get(NextPlayerTeamBId).RightAnswerScore;
         }
     }
 
