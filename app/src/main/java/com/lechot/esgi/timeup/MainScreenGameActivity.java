@@ -24,6 +24,8 @@ public class MainScreenGameActivity extends AppCompatActivity{
 
     private int NextPlayerTeamAId = 0;
     private int NextPlayerTeamBId = 0;
+    private boolean AllPlayerInTeamAHavePlayed = false;
+    private boolean AllPlayerInTeamBHavePlayed = false;
 
     private TextView Timer;
     private TextView Word;
@@ -71,7 +73,9 @@ public class MainScreenGameActivity extends AppCompatActivity{
         this.TeamBScoreView.setText(Integer.toString(GameData.TeamBScore));
         this.Word.setText("");
 
-        this.FinalCountDown = new CountDownTimer(30000,1000)
+        Timer.setText(String.format("%02d", TimeUnit.MILLISECONDS.toSeconds(GameData.TimerValue)));
+
+        this.FinalCountDown = new CountDownTimer(GameData.TimerValue,1000)
         {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -97,6 +101,9 @@ public class MainScreenGameActivity extends AppCompatActivity{
                 StartGame();
             }
         };
+
+        WordIndex = 0;
+        CreateRandomListWord();
 
         StartGame();
 
@@ -157,9 +164,6 @@ public class MainScreenGameActivity extends AppCompatActivity{
 
         SetStateDescription();
 
-        WordIndex = 0;
-        CreateRandomListWord();
-
         new AlertDialog.Builder(MainScreenGameActivity.this)
                 .setTitle("Nouveau Tour")
                 .setMessage("Equipe " + team)
@@ -189,10 +193,40 @@ public class MainScreenGameActivity extends AppCompatActivity{
         this.FinalCountDown.cancel();
         this.Word.setText("Tour Terminé.");
 
-        if(isTeamAPlaying)
-            NextPlayerTeamAId = (NextPlayerTeamAId+1) % GameData.TeamA.size();
-        else
-            NextPlayerTeamBId = (NextPlayerTeamBId+1) % GameData.TeamB.size();
+        if(isTeamAPlaying) {
+            ++NextPlayerTeamAId;
+            if(NextPlayerTeamAId == GameData.TeamA.size())
+                AllPlayerInTeamAHavePlayed =true;
+
+            NextPlayerTeamAId %= GameData.TeamA.size();
+        }else {
+            ++NextPlayerTeamBId;
+            if(NextPlayerTeamBId == GameData.TeamB.size())
+                AllPlayerInTeamBHavePlayed =true;
+
+            NextPlayerTeamBId %= GameData.TeamB.size();
+        }
+
+        if(AllPlayerInTeamAHavePlayed && AllPlayerInTeamBHavePlayed)
+        {
+            SwitchTeamCountDown.cancel();
+
+            isTeamAPlaying = false;
+
+            NextPlayerTeamAId = 0;
+            NextPlayerTeamBId = 0;
+
+            AllPlayerInTeamAHavePlayed = false;
+            AllPlayerInTeamBHavePlayed = false;
+
+            ++EtapeNumber;
+            if(EtapeNumber < 4) {
+                SetNextEtape();
+                return;
+            }else{
+                FinishGame(null);
+            }
+        }
 
     }
 
@@ -246,6 +280,7 @@ public class MainScreenGameActivity extends AppCompatActivity{
 
         if(index == this.randomWords.size())
         {
+            StopGame();
             ++EtapeNumber;
             if(EtapeNumber < 4) {
                 SetNextEtape();
@@ -271,8 +306,9 @@ public class MainScreenGameActivity extends AppCompatActivity{
 
     public void SetNextEtape()
     {
-        StopGame();
+        //StopGame();
 
+        WordIndex=0;
         ArrayList<Words> newWordList = new ArrayList<Words>();
         for(Words w : this.randomWords)
         {
@@ -282,7 +318,8 @@ public class MainScreenGameActivity extends AppCompatActivity{
                 newWordList.add(w);
             }
         }
-        this.randomWords = newWordList;
+        if(newWordList.size() > 0)
+            this.randomWords = newWordList;
 
         SwitchTeamCountDown.start();
     }

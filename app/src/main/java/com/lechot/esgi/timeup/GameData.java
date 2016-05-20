@@ -8,6 +8,8 @@ import com.lechot.esgi.timeup.Player;
  */
 public class GameData {
 
+    public static int TimerValue = 30000;
+
     public static ArrayList<Player> PlayerList = new ArrayList<Player>();
     public static ArrayList<Player> TeamA = new ArrayList<Player>();
     public static int TeamAScore=0;

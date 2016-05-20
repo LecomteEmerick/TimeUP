@@ -39,4 +39,19 @@ public class TeamViewActivity extends AppCompatActivity {
         startActivity(nextPageIntent);
     }
 
+    public void onChangeTimerFive(View v)
+    {
+        GameData.TimerValue = 5000;
+    }
+
+    public void onChangeTimerThirty(View v)
+    {
+        GameData.TimerValue = 30000;
+    }
+
+    public void onChangeTimerNinety(View v)
+    {
+        GameData.TimerValue = 90000;
+    }
+
 }
