@@ -20,6 +20,8 @@
         android:src="@drawable/timeup"
         />
 
+    <!-- Il ne faut pas utiliser la balise onClick cela créer une dépendance entre la vue et son
+    controller. Il vaut mieux ajouter le onClickListener à la main. -->
     <Button
         android:onClick="onPlayClicked"
         android:layout_width="wrap_content"

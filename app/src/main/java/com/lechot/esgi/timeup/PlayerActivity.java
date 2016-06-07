@@ -51,7 +51,7 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Player player = playersAdapter.getItem(position);
-                Toast.makeText(PlayerActivity.this, "Player clicked : " + player.getName(), Toast.LENGTH_LONG).show();
+                Toast.makeText(PlayerActivity.this, "Player clicked : " + player.getName(), Toast.LENGTH_LONG).show(); // Oui mais c'était à titre d'exemple, donc ça ne sert pas à grand chose.
             }
         });
     }
@@ -65,6 +65,8 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
             GameData.PlayerList.add(new Player(playerName));
         }
 
+        // Cette fonction avait pour but de vous montrer comment récupérer les données de puis un adapter.
+        // TODO: la supprimer
         for (int i = 0; i < playersAdapter.getCount(); i++){
             playersAdapter.getItem(i);
         }
@@ -72,24 +74,24 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     public void onEndListClicked(View v) {
+        // Vous ne récupérer pas les données du PlayerAdapter. Donc si je supprime un joueur, il reste dans la liste :P
         GameData.TeamA.add((GameData.PlayerList.get(0)));
-        for (int i = 1; i < GameData.PlayerList.size(); i++){
+        for (int i = 1; i < GameData.PlayerList.size(); i++){ // Oui ok, un peu archaïque mais ça marche bien.
                 if(GameData.TeamA.size()> GameData.TeamB.size()){
                     GameData.TeamB.add((GameData.PlayerList.get(i)));
                 }
                 else if ( GameData.TeamB.size()>GameData.TeamA.size()){
                     GameData.TeamA.add((GameData.PlayerList.get(i)));
                 }
-                else{
+                else {
                     double param = Math.random();
                     if (param > 0.5)
                         GameData.TeamA.add((GameData.PlayerList.get(i)));
                     else
                         GameData.TeamB.add((GameData.PlayerList.get(i)));
                 }
-
-
         }
+
         Intent nextPageIntent = new Intent(this, TeamViewActivity.class);
         startActivity(nextPageIntent);
     }

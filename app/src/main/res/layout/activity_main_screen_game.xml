@@ -1,126 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <Button
-        android:text="Show Score"
-        android:onClick="ShowScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:onClick="ShowScore"
+        android:text="Show Score"/>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="horizontal" android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:id="@+id/ScorePanelA">
+    <LinearLayout android:id="@+id/ScorePanelA"
+                  xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+                  android:visibility="gone">
 
         <TextView
-            android:text="Equipe A Points : "
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="15sp"
-            android:gravity="center"
             android:layout_weight="0.5"
+            android:gravity="center"
+            android:text="Equipe A Points : "
+            android:textSize="15sp"
             />
 
         <TextView
             android:id="@+id/ScoreTeamA"
-            android:text="0"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="15sp"
-            android:gravity="center"
             android:layout_weight="0.5"
+            android:gravity="center"
+            android:text="0"
+            android:textSize="15sp"
             />
 
     </LinearLayout>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="horizontal" android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:id="@+id/ScorePanelB"
+    <LinearLayout android:id="@+id/ScorePanelB"
+                  xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+                  android:visibility="gone"
         >
 
         <TextView
-            android:text="Equipe B Points : "
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="15sp"
-            android:gravity="center"
             android:layout_weight="0.5"
+            android:gravity="center"
+            android:text="Equipe B Points : "
+            android:textSize="15sp"
             />
 
         <TextView
             android:id="@+id/ScoreTeamB"
-            android:text="0"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="15sp"
-            android:gravity="center"
             android:layout_weight="0.5"
+            android:gravity="center"
+            android:text="0"
+            android:textSize="15sp"
             />
 
     </LinearLayout>
 
     <TextView
         android:id="@+id/TeamPlayInfos"
-        android:text="Team A Joueur 1"
-        android:textSize="20sp"
-        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Team A Joueur 1"
+        android:textSize="20sp"/>
 
     <TextView
         android:id="@+id/actionText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="Règle : "
         android:textSize="30sp"
-        android:gravity="center"
         />
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical" android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1.0"
-        android:gravity="center">
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_weight="1.0"
+                  android:gravity="center"
+                  android:orientation="vertical">
+
+        <!-- Haha, joli tentative de corruption -->
         <TextView
             android:id="@+id/HiddenWord"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="Teemo"
             android:textSize="40sp"
-            android:gravity="center"
             />
 
         <TextView
             android:id="@+id/TimerText"
-            android:text="30"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="30"
             android:textSize="40sp"
             />
     </LinearLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="horizontal" android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center">
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:gravity="center"
+                  android:orientation="horizontal">
 
         <Button
             android:id="@+id/SkipButton"
-            android:text="Passer"
-            android:onClick="SkipWord"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:onClick="SkipWord"
+            android:text="Passer"/>
+
         <Button
             android:id="@+id/FoundButton"
-            android:text="Trouvé"
-            android:onClick="FoundWord"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:onClick="FoundWord"
+            android:text="Trouvé"/>
 
     </LinearLayout>
 </LinearLayout>

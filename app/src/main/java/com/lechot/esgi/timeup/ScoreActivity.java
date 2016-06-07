@@ -67,6 +67,7 @@ public class ScoreActivity extends AppCompatActivity {
         GameData.TeamBScore = 0;
         Intent nextPageIntent = new Intent(this, CategoryActivity.class);
         startActivity(nextPageIntent);
+        // Ouch, sans le finish on repart pour une nouvelle 10aine d'activités empilées.
     }
 
 }

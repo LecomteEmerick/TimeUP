@@ -31,6 +31,10 @@
         android:text="@string/add_player"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+
+    <!-- Depuis la version 5.0 d'Android le right et left sont deprecated. Il faut donc supporter aussi le
+    end et start.
+    Il manque donc android:layout_marginEnd="5dp" -->
     <Button
         android:id="@+id/button_validate_player"
         android:layout_alignParentBottom="true"
