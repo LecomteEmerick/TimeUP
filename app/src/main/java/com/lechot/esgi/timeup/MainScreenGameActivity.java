@@ -20,6 +20,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class MainScreenGameActivity extends AppCompatActivity{
 
+    // peut importe la convention mais une unité quand même. Majuscule, sans majuscule, mais on s'y tient.
     private int EtapeNumber = 1;
 
     private int NextPlayerTeamAId = 0;
@@ -73,7 +74,7 @@ public class MainScreenGameActivity extends AppCompatActivity{
         this.TeamBScoreView.setText(Integer.toString(GameData.TeamBScore));
         this.Word.setText("");
 
-        Timer.setText(String.format("%02d", TimeUnit.MILLISECONDS.toSeconds(GameData.TimerValue)));
+        Timer.setText(String.format("%02d", TimeUnit.MILLISECONDS.toSeconds(GameData.TimerValue))); // Format des nombres. ( virgule en français, point en anglais)
 
         this.FinalCountDown = new CountDownTimer(GameData.TimerValue,1000)
         {
@@ -114,7 +115,7 @@ public class MainScreenGameActivity extends AppCompatActivity{
         switch(this.EtapeNumber)
         {
             case 1:
-                StateDescription.setText("Règle : mots illimité.");
+                StateDescription.setText("Règle : mots illimité."); // Dans les strings
                 break;
             case 2:
                 StateDescription.setText("Règle : un seul mot.");
@@ -145,7 +146,7 @@ public class MainScreenGameActivity extends AppCompatActivity{
         }
 
         this.randomWords = new ArrayList<Words>();
-        for(int i=0; i < wordsReferences.length; ++i)
+        for(int i=0; i < wordsReferences.length; ++i) // Pour faire une copy : randomWords = new ArrayList<>(wordReferences); et voilà :P
             this.randomWords.add(new Words(wordsReferences[i]));
 
         Collections.shuffle(this.randomWords);
@@ -168,6 +169,8 @@ public class MainScreenGameActivity extends AppCompatActivity{
                 .setTitle("Nouveau Tour")
                 .setMessage("Equipe " + team)
 
+                // Ok oui en effet, pour gérer le bouton back. Cela dit vous auriez pu forcer la validation via Ok :
+                // .setCancelable(false)
                 .setOnDismissListener(new DialogInterface.OnDismissListener() {
                     public void onDismiss(DialogInterface dialog)
                     {
@@ -187,8 +190,8 @@ public class MainScreenGameActivity extends AppCompatActivity{
                 .show();
     }
 
-    public void StopGame()
-    {
+    public void StopGame() // Oui mais attention dans les régles la manche 1 continue tant que tous les mots ne sont pas trouvé. En alternant Team A Team B
+    { // Mais vous avez géré le cas des teams avec un nombre de personnes différentes
         GameStarted = false;
         this.FinalCountDown.cancel();
         this.Word.setText("Tour Terminé.");

@@ -1,87 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <TextView
-        android:layout_gravity="center"
-        android:layout_margin="10dp"
+        android:id="@+id/textViewScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
         android:text="Résultats"
-        android:id="@+id/textViewScore" />
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
+
     <TextView
-        android:layout_gravity="center"
-        android:layout_margin="10dp"
+        android:id="@+id/Winner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
         android:text="Gagnant : "
-        android:id="@+id/Winner" />
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:gravity="center"
-        android:orientation="horizontal" android:layout_width="match_parent"
-        android:layout_height="45dp">
+                  android:layout_width="match_parent"
+                  android:layout_height="45dp"
+                  android:gravity="center"
+                  android:orientation="horizontal">
 
         <TextView
-            android:layout_weight="1.0"
-            android:layout_margin="10dp"
+            android:id="@+id/ScoreTeamA"
             android:layout_width="wrap_content"
             android:layout_height="25dp"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_margin="10dp"
+            android:layout_weight="1.0"
+            android:gravity="center"
             android:text="Team A :"
-            android:gravity="center"
-            android:id="@+id/ScoreTeamA" />
+            android:textAppearance="?android:attr/textAppearanceLarge"/>
 
         <TextView
-            android:layout_weight="1.0"
-            android:layout_margin="10dp"
+            android:id="@+id/ScoreTeamB"
             android:layout_width="wrap_content"
             android:layout_height="25dp"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Team B :"
+            android:layout_margin="10dp"
+            android:layout_weight="1.0"
             android:gravity="center"
-            android:id="@+id/ScoreTeamB" />
+            android:text="Team B :"
+            android:textAppearance="?android:attr/textAppearanceLarge"/>
 
 
     </LinearLayout>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:gravity="center"
-        android:orientation="horizontal" android:layout_width="match_parent"
-        android:layout_height="45dp">
-    <Button
-        android:onClick="onNextRoundClicked"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Manche Suivante"
-        android:id="@+id/buttonNextRound"
-        android:layout_centerHorizontal="true"/>
-
-    <Button
-        android:onClick="onNewGmeClicked"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nouvelle partie"
-        android:id="@+id/buttonPlay"
-        android:layout_centerHorizontal="true" />
-        </LinearLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="horizontal" android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center">
-        <ListView
-            android:layout_width="185dp"
+                  android:layout_width="match_parent"
+                  android:layout_height="45dp"
+                  android:gravity="center"
+                  android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/buttonNextRound"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/listViewTeamA" />
+            android:layout_centerHorizontal="true"
+            android:onClick="onNextRoundClicked"
+            android:text="Manche Suivante"/>
 
+        <Button
+            android:id="@+id/buttonPlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:onClick="onNewGmeClicked"
+            android:text="Nouvelle partie"/>
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:gravity="center"
+                  android:orientation="horizontal">
+
+        <!-- Non pas de tailles en dures. Ca marche pas sur tous les devices.
+        Remplacez par android:layout_width="0dp" et android:layout_weight="1"-->
         <ListView
+            android:id="@+id/listViewTeamA"
+            android:layout_width="185dp"
+            android:layout_height="wrap_content"/>
+
+        <!-- Pareil ici ce qui a pour effet de dédié 50% de la largeur à chaque liste -->
+        <ListView
+            android:id="@+id/listViewTeamB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/listViewTeamB"
-            android:layout_gravity="right" />
+            android:layout_gravity="right"/> <!-- gravity="end" mais c'est pas la peine. Vous êtes
+            dans un linear layout donc c'est déjà organisé les uns après les autres-->
     </LinearLayout>
 
 </LinearLayout>

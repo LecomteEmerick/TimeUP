@@ -3,8 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lechot.esgi.timeup">
 
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" /> <!-- Ces permissions étaient nécessaires pour la démo que je vous avais fait. Mais là ça fait bizarre
+    d'avoir un jeu qui te demande de pouvoir lire tes contacts -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- inutile aussi -->
 
     <application
         android:allowBackup="true"
@@ -19,7 +20,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PlayerActivity"></activity>
+        <!-- Si vous ne mettez rien dans la balise, vous pouvez la refermer immmédiatement : <activity android:name=".PlayerActivity" /> -->
+        <activity android:name=".PlayerActivity"></activity> <!-- TODO: ajouter l'attribut android:windowSoftInputMode="adjustResize" pour que qu'on puisse voir la liste même pendant l'ajout des éléments -->
+
+
         <activity android:name=".TeamViewActivity"></activity>
         <activity android:name=".CategoryActivity"></activity>
         <activity android:name=".MainScreenGameActivity"></activity>

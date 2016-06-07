@@ -28,12 +28,15 @@ public class TeamViewActivity extends AppCompatActivity {
             TeamB.add(GameData.TeamB.get(i).getName());
         }
 
+        // Très bonne utilisation des méthodes par défaut proposées par l'ArrayAdapter.
         ArrayAdapter<String> itemsAdapterTeamA =
                 new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, TeamA);
         ArrayAdapter<String> itemsAdapterTeamB =
                 new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, TeamB);
 
         ListView listViewTeamA = (ListView) findViewById(R.id.listViewTeamA);
+        // Attention tout de même, findViewById() peut renvoyer null si la vue n'est pas trouvé dans le layout. (Ou qu'elle est appelée trop tôt.)
+        // Elle peut renvoyer null. Du coup null.setAdapter(...) --> NullPointerException
         listViewTeamA.setAdapter(itemsAdapterTeamA);
         ListView listViewTeamB = (ListView) findViewById(R.id.listViewTeamB);
         listViewTeamB.setAdapter(itemsAdapterTeamB);
@@ -41,6 +44,8 @@ public class TeamViewActivity extends AppCompatActivity {
     public void onPlayClicked(View v) {
         Intent nextPageIntent = new Intent(this, CategoryActivity.class);
         startActivity(nextPageIntent);
+        // Il faut finish l'ancienne activity.
+        // Vous empilez les vues sans jamais les détruires.
     }
 
     public void onChangeTimerFive(View v)

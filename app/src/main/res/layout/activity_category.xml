@@ -1,59 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:gravity="center"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center"
+              android:orientation="vertical">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_margin="15dp"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Selectionnez une catégorie"
         android:id="@+id/textView3"
-        android:layout_gravity="center_horizontal" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="15dp"
+        android:text="Selectionnez une catégorie"
+        android:textAppearance="?android:attr/textAppearanceLarge"/> <!-- Dans les strings.xml -->
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:gravity="center"
-        android:orientation="horizontal" android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:gravity="center"
+                  android:orientation="horizontal">
+
+        <!-- + layout_marginStart="10dp"
+        Et bien pour l'ImageButton mais du coup, c'est un peu moche le bouton gris.
+        Vous pouvez le supprimer en ajoutant android:background="@null" -->
+        <!-- Attention avec les images en wrap_content, si vous ne fournissez pas les différents formats
+        (hdpi, xhdpi, etc ...) vous pouvez vous retrouvez avec des images qui sont pixélisées sur tel avec
+        grandes résolutions et qui sortent de l'écran sur les téléphones pouris -->
         <ImageButton
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/animals"
             android:id="@+id/imageAnimals"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
             android:onClick="onClickAnimals"
-            />
+            android:src="@drawable/animals" />
+
         <ImageButton
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/games"
             android:id="@+id/imageGames"
-            android:onClick="onClickGames"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:onClick="onClickGames"
+            android:src="@drawable/games"/>
     </LinearLayout>
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:gravity="center"
-        android:orientation="horizontal" android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:gravity="center"
+                  android:orientation="horizontal">
+
         <ImageButton
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/history"
             android:id="@+id/imageHistory"
-            android:onClick="onClickHistory"/>
-        <ImageButton
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/celebrity"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:onClick="onClickHistory"
+            android:src="@drawable/history"/>
+
+        <ImageButton
             android:id="@+id/imageCelebreties"
-            android:onClick="onClickCelebrety"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:onClick="onClickCelebrety"
+            android:src="@drawable/celebrity"/>
     </LinearLayout>
 
 

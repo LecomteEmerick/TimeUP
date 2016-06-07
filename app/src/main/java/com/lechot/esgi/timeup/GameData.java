@@ -6,6 +6,11 @@ import com.lechot.esgi.timeup.Player;
 /**
  * Created by Emerick Lecomte on 19/05/2016.
  */
+/*
+    Ouch, ça pique.
+    La méthode propre consiste à utiliser le pattern singleton.
+    http://thecodersbreakfast.net/index.php?post/2008/02/25/26-de-la-bonne-implementation-du-singleton-en-java
+ */
 public class GameData {
 
     public static int TimerValue = 30000;
